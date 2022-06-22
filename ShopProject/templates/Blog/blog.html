@@ -1,0 +1,68 @@
+{% extends 'base.html' %}
+{% load static %}
+
+
+{% block sidebar %}
+    <div class="col-sm-3">
+        {% include 'inc/_sidebar.html' %}
+    </div>
+{% endblock %}
+
+
+{% block content %}
+    <div class="col-sm-9">
+        <div class="blog-post-area">
+            <h2 class="title text-center">Latest From our Blog</h2>
+            {% for post in page_obj.object_list %}
+                <div class="single-blog-post" style="margin-bottom: 50px">
+                    <h3>{{ post.title }}</h3>
+                    <div class="post-meta">
+                        <ul>
+                            <li><i class="fa fa-user"></i> {{ post.author }}</li>
+                            <li><i class="fa fa-clock-o"></i> {{ post.created_at | date:"H:i" }}</li>
+                            <li><i class="fa fa-calendar"></i> {{ post.created_at | date:"M-j-Y" }}</li>
+                        </ul>
+                        <span>
+										<i class="fa fa-star"></i>
+										<i class="fa fa-star"></i>
+										<i class="fa fa-star"></i>
+										<i class="fa fa-star"></i>
+										<i class="fa fa-star-half-o"></i>
+								</span>
+                    </div>
+                    <a href="#">
+                        <img src="{{ post.photo.url }}" alt="" style="height: 300px; width: 100%">
+                    </a>
+                    <p>{{ post.content }}</p>
+                    <a class="btn btn-primary" href="">Read More</a>
+                </div>
+
+
+            {% endfor %}
+            <div class="pagination-area">
+                <ul class="pagination">
+                {% if page_obj.has_previous %}
+                        <li><a href="?page={{ page_obj.previous_page_number }}" class="page-link"><i
+                                class="fa fa-angle-double-left"></i></a></li>
+                    {% endif %}
+                    {% for p in page_obj.paginator.page_range %}
+                        {% if page_obj.number == p %}
+                            <li><a href="?page={{ p }}" class="active">{{ p }}</a></li>
+                        {% elif p > page_obj.number|add:-3 and p < page_obj.number|add:3 %}
+                            <li><a href="?page={{ p }}">{{ p }}</a></li>
+                        {% endif %}
+                    {% endfor %}
+                    {% if page_obj.has_next %}
+                        <li><a href="?page={{ page_obj.next_page_number }}" class="page-link"><i
+                                class="fa fa-angle-double-right"></i></a></li>
+                    {% endif %}
+
+                </ul>
+            </div>
+
+
+        </div>
+    </div>
+
+{% endblock %}
+

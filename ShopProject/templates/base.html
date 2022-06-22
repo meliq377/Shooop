@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <title>Home | E-Shopper</title>
+    <link href="{% static '/css/custom.css' %}" rel="stylesheet">
+    <link href="{% static '/css/bootstrap.min.css' %}" rel="stylesheet">
+    <link href="{% static '/css/font-awesome.min.css' %}" rel="stylesheet">
+    <link href="{% static '/css/prettyPhoto.css' %}" rel="stylesheet">
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.structure.min.css"
+          integrity="sha512-oM24YOsgj1yCDHwW895ZtK7zoDQgscnwkCLXcPUNsTRwoW1T1nDIuwkZq/O6oLYjpuz4DfEDr02Pguu68r4/3w=="
+          crossorigin="anonymous" referrerpolicy="no-referrer"/>
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/themes/base/jquery-ui.min.css"
+          integrity="sha512-okE4owXD0kfXzgVXBzCDIiSSlpXn3tJbNodngsTnIYPJWjuYhtJ+qMoc0+WUwLHeOwns0wm57Ka903FqQKM1sA=="
+          crossorigin="anonymous" referrerpolicy="no-referrer"/>
+    <link href="{% static '/css/price-range.css' %}" rel="stylesheet">
+    <link href="{% static '/css/animate.css' %}" rel="stylesheet">
+    <link href="{% static '/css/main.css' %}" rel="stylesheet">
+    <link href="{% static '/css/responsive.css' %}" rel="stylesheet">
+    <style>
+        .slider-box {
+            width: 90%;
+            margin: 25px auto
+        }
+
+        .slider-box label, input {
+            border: none;
+            display: inline-block;
+            margin-right: -4px;
+            vertical-align: top;
+            width: 30%
+        }
+
+        input {
+            width: 70%
+        }
+
+        .slider {
+            margin: 25px 0
+        }
+
+        .border-none {
+            border: 0.1px solid white;
+            margin-bottom: 75px;
+            margin-left: 15px;
+            margin-right: 15px;
+            padding-bottom: 10px;
+        }
+    </style>
+
+
+    <!--[if lt IE 9]>
+    <script src="{% static 'js/html5shiv.js' %}"></script>
+    <script src="{% static 'js/respond.min.js' %}"></script>
+    <![endif]-->
+    <link rel="shortcut icon" href="{% static 'images/ico/favicon.ico' %}">
+    <link rel="apple-touch-icon-precomposed" sizes="144x144"
+          href="{% static 'images/ico/apple-touch-icon-144-precomposed.png' %}">
+    <link rel="apple-touch-icon-precomposed" sizes="114x114"
+          href="{% static 'images/ico/apple-touch-icon-114-precomposed.png' %}">
+    <link rel="apple-touch-icon-precomposed" sizes="72x72"
+          href="{% static 'images/ico/apple-touch-icon-72-precomposed.png' %}">
+    <link rel="apple-touch-icon-precomposed" href="{% static 'images/ico/apple-touch-icon-57-precomposed.png' %}">
+</head><!--/head-->
+
+<body>
+{% include 'inc/_header.html' %}
+
+{% block slider %}
+    {% if messages %}
+        {% for message in messages %}
+            {% if message.tags == 'error' %}
+                <div class="alert alert-danger" role="alert">
+                    {{ message }}
+                </div>
+            {% else %}
+                <div class="alert alert-{{ message.tags }}" role="alert">
+                    {{ message }}
+                </div>
+            {% endif %}
+        {% endfor %}
+
+    {% endif %}
+{% endblock %}
+
+{% block sidebar %}
+{% endblock %}
+
+
+<section>
+    <div class="container">
+        <div class="row">
+
+
+            {% block content %}
+
+            {% endblock %}
+
+        </div>
+    </div>
+</section>
+
+{% include 'inc/_footer.html' %}
+
+<script src="{% static '/js/jquery.js' %}"></script>
+<script type="text/javascript"> window.CSRF_TOKEN = "{{ csrf_token }}"; </script>
+<script src="/static/js/main.js"></script>
+<script src="{% static '/js/bootstrap.min.js' %}"></script>
+<script src="{% static '/js/jquery.scrollUp.min.js' %}"></script>
+<script src="{% static '/js/jquery.prettyPhoto.js' %}"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"
+        integrity="sha512-uto9mlQzrs59VwILcLiRYeLKPPbS/bT71da/OEBYEwcdNUk8jYIy+D176RYoop1Da+f9mvkYrmj5MCLZWEtQuA=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script src="{% static '/js/main.js' %}"></script>
+
+<script>
+    $(document).ready(function () {
+        $(function () {
+            $.scrollUp({
+                scrollName: 'scrollUp', // Element ID
+                scrollDistance: 300, // Distance from top/bottom before showing element (px)
+                scrollFrom: 'top', // 'top' or 'bottom'
+                scrollSpeed: 300, // Speed back to top (ms)
+                easingType: 'linear', // Scroll to top easing (see http://easings.net/)
+                animation: 'fade', // Fade, slide, none
+                animationSpeed: 200, // Animation in speed (ms)
+                scrollTrigger: false, // Set a custom triggering element. Can be an HTML string or jQuery object
+                //scrollTarget: false, // Set a custom target element for scrolling to the top
+                scrollText: '<i class="fa fa-angle-up"></i>', // Text for element, can contain HTML
+                scrollTitle: false, // Set a custom <a> title if required.
+                scrollImg: false, // Set true to use image
+                activeOverlay: false, // Set CSS color to display scrollUp active point, e.g '#00FFFF'
+                zIndex: 2147483647 // Z-Index for the overlay
+            });
+        });
+
+    });
+
+
+    $(function () {
+        $("#price-range").slider({
+            steps: 2,
+            range: true,
+            min: 10, max: 500,
+            values: [10, 500],
+            slide: function (event, ui) {
+                $("#priceRange").val(ui.values[0] + " - " + ui.values[1]);
+                $('#min').val(ui.values[0])
+                $('#max').val(ui.values[1])
+            }
+        });
+        $("#priceRange").val($("#price-range").slider("values", 0) + " - " + $("#price-range").slider("values", 1));
+        $(document).on('click', '.filter', function () {
+            var n = $('#min').val();
+            const min = $('.filter').attr('min', n);
+            var x = $('#max').val();
+            const max = $('.filter').attr('max', x);
+        });
+    });
+    $('body').on('click', '.filter', function () {
+        $('.features_items div').remove()
+        const min = $('#min').val();
+        const max = $('#max').val();
+        $.ajax({
+            url: "/ajax_price_range/",
+            data: {
+                min: min,
+                max: max,
+                csrfmiddlewaretoken: $('input[name=csrfmiddlewaretoken]').val()
+            },
+            dataType: 'json',
+            type: 'post',
+            success: function (data) {
+                console.log(data)
+                $.map(data, function (item) {
+                    console.log(item)
+                    $('.features_items').append(
+                        `
+                <div class="col-sm-4">
+                    <div class="product-image-wrapper">
+                        <div class="single-products">
+                            <div class="productinfo text-center">
+                                <img src="media/${item.fields.photo}" alt="" style="height: 200px"/>
+                                <h2>${item.fields.price}</h2>
+                                <p>${item.fields.title}</p>
+                                <a href="javascript:;" class="btn btn-default add-to-cart"><i
+                                        class="fa fa-shopping-cart"></i>Add
+                                    to
+                                    cart</a>
+                            </div>
+                            <div class="product-overlay">
+                                <div class="overlay-content">
+                                    <h2>${item.fields.price}</h2>
+                                    <p>${item.fields.title}</p>
+                                    <form action="/cart/add/${item.pk}" method="post">
+                                        {% csrf_token %}
+                                        <button type="submit" class="btn btn-default add-to-cart">
+                                            <i class="fa fa-shopping-cart"></i>
+                                            Add to cart
+                                        </button>
+                                    </form>
+
+
+                                </div>
+                            </div>
+                        </div>
+                        <div class="choose">
+                            <ul class="nav nav-pills nav-justified">
+                                <li><a href="#"><i class="fa fa-plus-square"></i>Add to wishlist</a></li>
+                                <li><a href="#"><i class="fa fa-plus-square"></i>Add to compare</a></li>
+                            </ul>
+                            <ul style="margin-left: 50px ">
+                                <li>
+                                    <a href="/Eshopper/views.py/detail_product">Product Detail </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                `
+                    )
+                });
+            },
+        });
+    });
+
+</script>
+</body>
+</html>
